@@ -13,6 +13,7 @@ gs=tc=20;
 ax=ay=15;
 xv=yv=0;
 trail=[];
+isGameStarted=false;
 tail = 5;
 function game() {
     px+=xv;
@@ -36,7 +37,9 @@ function game() {
     for(var i=0;i<trail.length;i++) {
         ctx.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
         if(trail[i].x==px && trail[i].y==py) {
-            document.getElementById("score").innerText="Spēle beigusies tev ir " + tail + " punkti";
+            if(isGameStarted===true){
+            document.getElementById("score").innerText="Spēle beigusies tev ir " + tail + " punkti, spied ←↑→↓ lai atsāktu";}
+            
             tail = 5;
             xv=yv=0;
 
@@ -65,18 +68,22 @@ function keyPush(evt) {
         case 37:
             xv=-1;yv=0;
             document.getElementById("score").innerText="Rezultāts astei " + tail;
+            isGameStarted=true;
             break;
         case 38:
             xv=0;yv=-1;
             document.getElementById("score").innerText="Rezultāts astei " + tail;
+            isGameStarted=true;
             break;
         case 39:
             xv=1;yv=0;
             document.getElementById("score").innerText="Rezultāts astei " + tail;
+            isGameStarted=true;
             break;
         case 40:
             xv=0;yv=1;
             document.getElementById("score").innerText="Rezultāts astei " + tail;
+            isGameStarted=true;
             break;
     }
 }
@@ -94,22 +101,26 @@ function gamepad_action(gamepadIndex){
             if(myGamepad.axes[0]<0.1){
                 xv=-1;yv=0;
                 document.getElementById("score").innerText="Rezultāts astei " + tail;
+                isGameStarted=true;
                 
             }
             if(myGamepad.axes[0]>-0.1){
                
                 xv=1;yv=0;
                 document.getElementById("score").innerText="Rezultāts astei " + tail;
+                isGameStarted=true;
             }
             if(myGamepad.axes[1]>0.1){
                 
                 xv=0;yv=1;
                 document.getElementById("score").innerText="Rezultāts astei " + tail;
+                isGameStarted=true;
             }
             if(myGamepad.axes[1]<-0.1){
                
                 xv=0;yv=-1;
                 document.getElementById("score").innerText="Rezultāts astei " + tail;
+                isGameStarted=true;
             }
     
         }
